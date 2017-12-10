@@ -7,7 +7,7 @@ requirejs.config({//换名字的时候用,如果不想配置的话，就必须�
         jquery:'jquery-1.12.4'
     }
 });
-require(['jquery','dialog_new'],function ($,Dialog) {
+require(['jquery','dialog_new'],function ($, Dialog) {
 
     $('#btn').on('click',function () {
 
