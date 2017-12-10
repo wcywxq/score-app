@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--<script src="require.js" data-main="index"></script>-->
+
+<script>
+    var oScript = document.createElement('script');
+    oScript.src = '2.index.js';
+    document.body.appendChild(oScript);
+    //动态创建script 标签 异步加载
+    //async：标准浏览器  加载过程中解析文件，文件加载完就执行 ，不能保证顺序
+    // defer：ie  网络加载完 执行文件 按照逻辑来说能保证文件按照顺序执行
+    // 加载js文件 通过正则表达式匹配加载文件
+</script>
+<!--<script src="index.js"></script>-->
+</body>
+</html>
