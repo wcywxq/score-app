@@ -41,7 +41,7 @@ define(['jquery'],function ($) {//需要哪些模块就引进来哪些文件
         $('body').append(this.$mask);
     };
 
-    Dialog.prototype.close = function () {
+    Dialog.prototype.close = function () {//prototype:方法写到原型中
         this.$mask.remove();//此处的this是为了使用局部变量$mask
     };
     return Dialog;
