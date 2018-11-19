@@ -207,6 +207,7 @@ export function jsonp(url, options = {}) {
  */
 
 export const server = {
+    
     host: 'https://m.douban.com/rexxar/api/v2/subject_collection/',
     /**
      *  接口：影院热映
@@ -248,5 +249,17 @@ export const server = {
      */
     movieTop250: function (paramObj) {
         return get('/movie/top250', paramObj)
+    },
+    bookFiction: function(params) {
+        let url = this.host + 'book_fiction/items';
+        return jsonp(url, params)
+    },
+    bookNoFiction: function(params) {
+        let url = this.host + 'book_nonfiction/items';
+        return jsonp(url, params)
+    },
+    bookStore: function(params) {
+        let url = this.host + 'market_product_book_mobile_web/items';
+        return jsonp(url, params)
     }
 };
