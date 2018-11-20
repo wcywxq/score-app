@@ -93,7 +93,7 @@ export default {
           padding-right: 15px;
         }
         img {
-          @include wh(auto, 143px);
+          @include wh(100px, 143px);
           display: block;
         }
         div {
@@ -103,7 +103,8 @@ export default {
             @include fz-center;
             display: inline-block;
           }
-          .star, .price {
+          .star,
+          .price {
             @include flex;
             flex-direction: column;
             padding: 0 10px;

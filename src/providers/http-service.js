@@ -207,7 +207,7 @@ export function jsonp(url, options = {}) {
  */
 
 export const server = {
-    
+
     host: 'https://m.douban.com/rexxar/api/v2/subject_collection/',
     /**
      *  接口：影院热映
@@ -250,16 +250,56 @@ export const server = {
     movieTop250: function (paramObj) {
         return get('/movie/top250', paramObj)
     },
-    bookFiction: function(params) {
+    /**
+     * 图书接口
+     */
+    bookFiction: function (params) {
         let url = this.host + 'book_fiction/items';
         return jsonp(url, params)
     },
-    bookNoFiction: function(params) {
+    bookNoFiction: function (params) {
         let url = this.host + 'book_nonfiction/items';
         return jsonp(url, params)
     },
-    bookStore: function(params) {
+    bookStore: function (params) {
         let url = this.host + 'market_product_book_mobile_web/items';
         return jsonp(url, params)
-    }
+    },
+    bookStore: function (params) {
+        let url = this.host + 'market_product_book_mobile_web/items';
+        return jsonp(url, params)
+    },
+    /**
+     * 电视接口
+     */
+    domestic: function (params) {
+        let url = this.host + 'tv_domestic/items';
+        return jsonp(url, params)
+    },
+    varietyShow: function (params) {
+        let url = this.host + 'tv_variety_show/items';
+        return jsonp(url, params)
+    },
+    american: function (params) {
+        let url = this.host + 'tv_american/items';
+        return jsonp(url, params)
+    },
+    /**
+     * 音乐接口
+     */
+    Chinese: function (params) {
+        let url = this.host + 'music_chinese/items';
+        return jsonp(url, params)
+    },
+    occident: function (params) {
+        let url = this.host + 'music_occident/items';
+        return jsonp(url, params)
+    },
+    japanKorea: function (params) {
+        let url = this.host + 'music_japan_korea/items';
+        return jsonp(url, params)
+    },
+
+
+
 };
