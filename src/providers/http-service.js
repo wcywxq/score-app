@@ -205,10 +205,9 @@ export function jsonp(url, options = {}) {
 /**
  *  下面是获取数据的接口
  */
-
 export const server = {
-
     host: 'https://m.douban.com/rexxar/api/v2/subject_collection/',
+    groupHost: 'https://bird.ioliu.cn/v2/?url=https://m.douban.com/rexxar/api/v2/',
     /**
      *  接口：影院热映
      *  名称: movieHot
@@ -299,7 +298,11 @@ export const server = {
         let url = this.host + 'music_japan_korea/items';
         return jsonp(url, params)
     },
-
-
-
+    /**
+     * 小组
+     * */
+    group: function (params) {
+        let url = this.groupHost + 'group/rec_groups_for_newbies';
+        return get(url, params)
+    }
 };
