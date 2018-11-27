@@ -51,7 +51,7 @@
         methods: {
             more(event) {
                 this.$router.push({
-                    path: "movieDetail",
+                    path: "Detail",
                     query: {
                         id: event.currentTarget.dataset.id
                     }
