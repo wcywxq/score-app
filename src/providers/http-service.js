@@ -304,5 +304,25 @@ export const server = {
     group: function (params) {
         let url = this.groupHost + 'group/rec_groups_for_newbies';
         return get(url, params)
+    },
+    /**
+     * 更多详情
+     */
+    more: function (id, params) {
+        let url = this.groupHost + `elessar/subject/${id}`;
+        return get(url, params)
+    },
+    credits: function (id, params) {
+        let url = this.groupHost + `movie/${id}/credits`;
+        return get(url, params)
+    },
+    shotCommits: function (id, params) {
+        let url = this.groupHost + `movie/${id}/interests`;
+        return get(url, params)
+    },
+    discuss: function(id, params) {
+        let url = this.groupHost + `movie/${id}/forum_topics`;
+        return get(url, params)
     }
+
 };
