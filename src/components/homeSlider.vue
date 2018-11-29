@@ -11,7 +11,8 @@
             :to="{
                     path: 'Detail', 
                     query: {
-                        id: item.id
+                        id: item.id,
+                        type: type
                     }
                 }"
           >
@@ -48,6 +49,7 @@ export default {
     title: String,
     message: Array,
     status: Boolean,
+    type: String,
     linkMore: Object
   },
   methods: {},

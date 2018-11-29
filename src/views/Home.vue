@@ -8,11 +8,13 @@
           :title="item.title"
           :message="item.response"
           :status="item.flag"
+          :type="item.type"
           :linkMore="{
-                            path: 'List',
+                            path: `List/${item.reqType}`,
                             query: {
                                 title: item.title,
-                                obj: item.response
+                                type: item.type,
+                                reqType: item.reqType
                             }    
                         }"
         />
@@ -25,11 +27,13 @@
           :title="item.title"
           :message="item.response"
           :status="item.flag"
+          :type="item.type"
           :linkMore="{
-                            path: 'List',
+                            path: `List/${item.reqType}`,
                             query: {
                                 title: item.title,
-                                obj: item.response
+                                type: item.type,
+                                reqType: item.reqType
                             }
                         }"
         />
@@ -42,11 +46,13 @@
           :title="item.title"
           :message="item.response"
           :status="item.flag"
+          :type="item.type"
           :linkMore="{
-                            path: 'List',
+                            path: `List/${item.reqType}`,
                             query: {
                                 title: item.title,
-                                obj: item.response
+                                type: item.type,
+                                reqType: item.reqType
                             }
                         }"
         />
@@ -59,11 +65,13 @@
           :title="item.title"
           :message="item.response"
           :status="item.flag"
+          :type="item.type"
           :linkMore="{
-                            path: 'List',
+                            path: `List/${item.reqType}`,
                             query: {
                                 title: item.title,
-                                obj: item.response
+                                type: item.type,
+                                reqType: item.reqType
                             }
                         }"
         />
@@ -124,73 +132,99 @@ export default {
         {
           title: "热门电影前250",
           response: null,
-          flag: true
+          flag: true,
+          type: "movie",
+          reqType: "movieTop250"
         },
         {
           title: "影院热映",
           response: null,
-          flag: true
+          flag: true,
+          type: "movie",
+          reqType: "movieHot"
         },
         {
           title: "免费在线电影",
           response: null,
-          flag: true
+          flag: true,
+          type: "movie",
+          reqType: "movieFree"
         },
         {
           title: "新片速递",
           response: null,
-          flag: true
+          flag: true,
+          type: "movie",
+          reqType: "movieRecent"
         }
       ],
       book: [
         {
           title: "最受关注图书：虚构类",
           response: null,
-          flag: true
+          flag: true,
+          type: "book",
+          reqType: "bookFiction"
         },
         {
           title: "最受关注图书：非虚构类",
           response: null,
-          flag: true
+          flag: true,
+          type: "book",
+          reqType: "bookNoFiction"
         },
         {
           title: "豆瓣书店",
           response: null,
-          flag: false
+          flag: false,
+          type: "book",
+          reqType: "bookStore"
         }
       ],
       tv: [
         {
           title: "近期热门国产剧",
           response: null,
-          flag: true
+          flag: true,
+          type: "tv",
+          reqType: "domestic"
         },
         {
           title: "近期热门综艺节目",
           response: null,
-          flag: true
+          flag: true,
+          type: "tv",
+          reqType: "varietyShow"
         },
         {
           title: "近期热门美剧",
           response: null,
-          flag: true
+          flag: true,
+          type: "tv",
+          reqType: "american"
         }
       ],
       music: [
         {
           title: "华语新碟榜",
           response: null,
-          flag: true
+          flag: true,
+          type: "music",
+          reqType: "Chinese"
         },
         {
           title: "欧美新碟榜",
           response: null,
-          flag: true
+          flag: true,
+          type: "music",
+          reqType: "occident"
         },
         {
           title: "日韩新碟榜",
           response: null,
-          flag: true
+          flag: true,
+          type: "music",
+          reqType: "japanKorea"
         }
       ],
       type: {

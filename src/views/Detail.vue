@@ -1,11 +1,7 @@
 <template>
   <div id="detail">
     <cards :dataVal="dataVal" :dataPerson="dataPerson"/>
-    <discuss
-      :dataShortCommit="dataShortCommit.interests"
-      :title="dataVal.title"
-      :count="dataShortCommit.total"
-    />
+    <discuss :dataShortCommit="dataShortCommit" :title="dataVal.title" :dataDiscuss="dataDiscuss"/>
   </div>
 </template>
 
@@ -18,7 +14,8 @@ export default {
     return {
       dataVal: null,
       dataPerson: null,
-      dataShortCommit: null
+      dataShortCommit: null,
+      dataDiscuss: null
     };
   },
   components: {
@@ -30,7 +27,7 @@ export default {
       return this.$server.more(this.$route.query.id);
     },
     credits() {
-      return this.$server.credits(this.$route.query.id);
+      return this.$server.credits(this.$route.query.type, this.$route.query.id);
     },
     shotCommits() {
       let paramObj = {
@@ -40,7 +37,11 @@ export default {
         ck: "",
         for_mobile: 1
       };
-      return this.$server.shotCommits(this.$route.query.id, paramObj);
+      return this.$server.shotCommits(
+        this.$route.query.type,
+        this.$route.query.id,
+        paramObj
+      );
     },
     discuss() {
       let paramObj = {
@@ -49,7 +50,11 @@ export default {
         ck: "",
         for_mobile: 1
       };
-      return this.$server.discuss(this.$route.query.id, paramObj);
+      return this.$server.discuss(
+        this.$route.query.type,
+        this.$route.query.id,
+        paramObj
+      );
     }
   },
   mounted() {
@@ -81,7 +86,7 @@ export default {
      * 讨论
      */
     this.discuss().then(res => {
-      console.log(res);
+      this.dataDiscuss = res;
     });
   }
 };

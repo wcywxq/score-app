@@ -1,9 +1,9 @@
 <template>
   <div id="discuss">
-    <h2 class="card-subTitle">{{ title }}的短评({{ count }})</h2>
+    <h2 class="card-subTitle">{{ title }}的短评({{ dataShortCommit.total }})</h2>
     <section class="comment">
       <ul>
-        <li v-for="(item, index) in dataShortCommit" :key="index">
+        <li v-for="(item, index) in dataShortCommit.interests" :key="index">
           <aside class="comment-top">
             <a :href="item.user.url">
               <img :src="'https://images.weserv.nl/?url=' + item.user.avatar" alt>
@@ -28,6 +28,17 @@
       </section>
     </section>
     <section class="discuss">
+      <h2 class="card-subTitle">讨论({{ dataDiscuss.total }})</h2>
+      <section class="discuss-list">
+        <ul>
+          <li v-for="(item, index) in dataDiscuss.forum_topics" :key="index">
+            <a :href="item.url">
+              <h3>{{ item.title }}</h3>
+              <div class="discuss-list-info">{{ item.comments_count }}回应</div>
+            </a>
+          </li>
+        </ul>
+      </section>
       <section class="go-all">
         <router-link to="#">查看全部讨论</router-link>
       </section>
@@ -42,9 +53,10 @@ export default {
     return {};
   },
   props: {
-    dataShortCommit: Array,
+    dataShortCommit: Object,
     title: String,
-    count: String
+    count: String,
+    dataDiscuss: Object
   }
 };
 </script>
@@ -90,6 +102,27 @@ export default {
       margin-top: 10px;
       .text {
         margin-left: 3px;
+      }
+    }
+  }
+  .discuss {
+    &-list {
+      ul {
+        li {
+          padding: 0 18px 15px 0;
+          a {
+            color: #494949;
+            h3 {
+              @include sizeColor(17px, #494949, inherit);
+              font-weight: 500;
+            }
+          }
+        }
+      }
+
+      &-info {
+        @include sizeColor(14px, #42bd56, inherit);
+        margin-top: 5px;
       }
     }
   }

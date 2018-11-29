@@ -264,10 +264,6 @@ export const server = {
         let url = this.host + 'market_product_book_mobile_web/items';
         return jsonp(url, params)
     },
-    bookStore: function (params) {
-        let url = this.host + 'market_product_book_mobile_web/items';
-        return jsonp(url, params)
-    },
     /**
      * 电视接口
      */
@@ -312,16 +308,16 @@ export const server = {
         let url = this.groupHost + `elessar/subject/${id}`;
         return get(url, params)
     },
-    credits: function (id, params) {
-        let url = this.groupHost + `movie/${id}/credits`;
+    credits: function (type, id, params) {
+        let url = this.groupHost + `${type}/${id}/credits`;
         return get(url, params)
     },
-    shotCommits: function (id, params) {
-        let url = this.groupHost + `movie/${id}/interests`;
+    shotCommits: function (type, id, params) {
+        let url = this.groupHost + `${type}/${id}/interests`;
         return get(url, params)
     },
-    discuss: function(id, params) {
-        let url = this.groupHost + `movie/${id}/forum_topics`;
+    discuss: function (type, id, params) {
+        let url = this.groupHost + `${type}/${id}/forum_topics`;
         return get(url, params)
     }
 
