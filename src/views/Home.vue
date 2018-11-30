@@ -124,7 +124,7 @@ import homeSlider from "@/components/homeSlider";
 import classify from "@/components/classify";
 import application from "@/components/application";
 import group from "@/components/group";
-import data from "@/assets/application.json";
+import data from "@/static/json/application.json";
 
 export default {
   name: "Home",

@@ -3,7 +3,7 @@
     <header>{{$route.query.title}}</header>
     <section class="list-container">
       <aside class="list-box" v-for="(item, index) in obj" :key="index">
-        <router-link :to="{ path: 'Detail', query: { id: item.id, type: $route.query.type } }">
+        <router-link :to="{ name: 'detail', query: { id: item.id, type: $route.query.type } }">
           <aside class="list-container-cover">
             <img :src="'https://images.weserv.nl/?url=' + item.cover.url" :alt="item.cover.url">
           </aside>

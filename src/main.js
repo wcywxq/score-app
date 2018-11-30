@@ -29,7 +29,7 @@ Vue.use(NavBar).use(Icon).use(Tab).use(Tabs).use(Rate).use(Loading).use(Collapse
 Vue.prototype.$server = server;
 
 import './assets/scss/reset.scss'
-import "./assets/iconfont/iconfont.css";
+import "./static/iconfont/iconfont.css";
 
 new Vue({
     router,
