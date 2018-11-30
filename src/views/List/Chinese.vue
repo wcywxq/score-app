@@ -23,6 +23,9 @@
         </router-link>
       </aside>
     </section>
+    <section id="loading" v-show="isLoad">
+      <van-loading type="spinner" color="green"/>
+    </section>
   </div>
 </template>
 
@@ -31,16 +34,40 @@ export default {
   name: "List",
   data() {
     return {
-      obj: null
+      obj: [],
+      count: 20,
+      isLoad: true, //正在加载
+      flag: true, //没有请求
+      isBottom: false //是否到底
     };
   },
   computed: {
     params() {
       let paramObj = {
         start: 0,
-        count: 18
+        count: this.count
       };
       return paramObj;
+    }
+  },
+  methods: {
+    load() {
+      if (this.flag) {
+        this.flag = false;
+        this.$server[this.$route.query.reqType](this.params).then(res => {
+          this.obj = res.subject_collection_items;
+          this.obj.forEach(element => {
+            if (!element.rating) {
+              element.rating = {
+                value: "暂无评分"
+              };
+            }
+          });
+          // console.log(this.obj);
+          this.flag = true;
+          this.isLoad = false;
+        });
+      }
     }
   },
   mounted() {
@@ -51,17 +78,22 @@ export default {
       bgColor: "#E4A813",
       arrow: true
     });
-
-    this.$server[this.$route.query.reqType](this.params).then(res => {
-      this.obj = res.subject_collection_items;
-      this.obj.forEach(element => {
-        if (!element.rating) {
-          element.rating = {
-            value: "暂无评分"
-          };
-        }
-      });
-    });
+    this.load();
+    window.onscroll = () => {
+      var scrollTop =
+        document.documentElement.scrollTop || document.body.scrollTop;
+      var clientHeight = document.documentElement.clientHeight;
+      var scrollHeight = document.documentElement.scrollHeight;
+      if (
+        Math.abs(scrollTop + clientHeight - scrollHeight) < 1 &&
+        !this.isBottom
+      ) {
+        this.isBottom = true;
+        this.count += 10;
+        this.load();
+        this.isLoad = true;
+      }
+    };
   }
 };
 </script>
@@ -101,5 +133,9 @@ export default {
   .list-box {
     margin-bottom: 20px;
   }
+}
+#loading {
+  @include flex;
+  @include fl_row_center;
 }
 </style>

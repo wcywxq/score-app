@@ -36,6 +36,9 @@
         </li>
       </ul>
     </aside>
+    <section id="loading">
+      <van-loading color="green" v-show="Loading"/>
+    </section>
   </div>
 </template>
 
@@ -50,7 +53,8 @@ export default {
     message: Array,
     status: Boolean,
     type: String,
-    linkMore: Object
+    linkMore: Object,
+    Loading: Boolean
   },
   methods: {},
   mounted() {}
@@ -111,5 +115,9 @@ export default {
       }
     }
   }
+}
+#loading {
+  @include flex;
+  @include fl_row_center;
 }
 </style>

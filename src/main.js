@@ -13,7 +13,6 @@ import {
     Collapse,
     CollapseItem
 } from 'vant'
-import {} from 'element-ui'
 import {
     server
 } from './providers/http-service'

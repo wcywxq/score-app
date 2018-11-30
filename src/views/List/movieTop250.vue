@@ -2,7 +2,7 @@
   <div id="list">
     <header>{{$route.query.title}}</header>
     <section class="list-container">
-      <aside v-for="(item, index) in obj" :key="index">
+      <aside class="list-box" v-for="(item, index) in obj" :key="index">
         <router-link :to="{ path: 'Detail', query: { id: item.id, type: $route.query.type } }">
           <aside class="list-container-cover">
             <img
@@ -20,6 +20,9 @@
         </router-link>
       </aside>
     </section>
+    <section id="loading" v-show="isLoad">
+      <van-loading type="spinner" color="green"/>
+    </section>
   </div>
 </template>
 
@@ -28,16 +31,32 @@ export default {
   name: "List",
   data() {
     return {
-      obj: null
+      obj: [],
+      count: 20,
+      isLoad: true, //正在加载
+      flag: true, //没有请求
+      isBottom: false //是否到底
     };
   },
   computed: {
     params() {
       let paramObj = {
         start: 0,
-        count: 18
+        count: this.count
       };
       return paramObj;
+    }
+  },
+  methods: {
+    load() {
+      if (this.flag) {
+        this.flag = false;
+        this.$server[this.$route.query.reqType](this.params).then(res => {
+          this.obj = res.subjects;
+          this.flag = true;
+          this.isLoad = false;
+        });
+      }
     }
   },
   mounted() {
@@ -48,11 +67,22 @@ export default {
       bgColor: "#E4A813",
       arrow: true
     });
-
-    this.$server[this.$route.query.reqType](this.params).then(res => {
-      this.obj = res.subjects;
-      console.log(res.subjects);
-    });
+    this.load();
+    window.onscroll = () => {
+      var scrollTop =
+        document.documentElement.scrollTop || document.body.scrollTop;
+      var clientHeight = document.documentElement.clientHeight;
+      var scrollHeight = document.documentElement.scrollHeight;
+      if (
+        Math.abs(scrollTop + clientHeight - scrollHeight) < 1 &&
+        !this.isBottom
+      ) {
+        this.isBottom = true;
+        this.count += 10;
+        this.load();
+        this.isLoad = true;
+      }
+    };
   }
 };
 </script>
@@ -71,9 +101,6 @@ export default {
     @include fz-center;
     flex-wrap: wrap;
     padding: 20px 8px;
-    a {
-      margin-bottom: 20px;
-    }
     &-cover {
       padding: 0 14px;
       img {
@@ -92,5 +119,12 @@ export default {
       }
     }
   }
+  .list-box {
+    margin-bottom: 20px;
+  }
+}
+#loading {
+  @include flex;
+  @include fl_row_center;
 }
 </style>

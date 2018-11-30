@@ -9,6 +9,7 @@
           :message="item.response"
           :status="item.flag"
           :type="item.type"
+          :Loading="isLoading"
           :linkMore="{
                             path: `List/${item.reqType}`,
                             query: {
@@ -28,6 +29,7 @@
           :message="item.response"
           :status="item.flag"
           :type="item.type"
+          :Loading="isLoading"
           :linkMore="{
                             path: `List/${item.reqType}`,
                             query: {
@@ -47,6 +49,7 @@
           :message="item.response"
           :status="item.flag"
           :type="item.type"
+          :Loading="isLoading"
           :linkMore="{
                             path: `List/${item.reqType}`,
                             query: {
@@ -66,6 +69,7 @@
           :message="item.response"
           :status="item.flag"
           :type="item.type"
+          :Loading="isLoading"
           :linkMore="{
                             path: `List/${item.reqType}`,
                             query: {
@@ -462,6 +466,7 @@ export default {
       this.movieFree(),
       this.movieRecent()
     ]).then(resArray => {
+      this.isLoading = false;
       for (let i in resArray) {
         if (i == 0) {
           this.movie[i].response = resArray[i].subjects;
@@ -487,6 +492,7 @@ export default {
     });
     Promise.all([this.domestic(), this.varietyShow(), this.american()]).then(
       resArray => {
+        this.isLoading = false;
         for (let i in resArray) {
           this.tv[i].response = resArray[i].subject_collection_items;
           this.tv[i].response.forEach(element => {
@@ -504,6 +510,7 @@ export default {
       this.bookNoFiction(),
       this.bookStore()
     ]).then(resArray => {
+      this.isLoading = false;
       for (let i in resArray) {
         this.book[i].response = resArray[i].subject_collection_items;
         this.book[i].response.forEach(element => {
@@ -517,6 +524,7 @@ export default {
     });
     Promise.all([this.Chinese(), this.occident(), this.japanKorea()]).then(
       resArray => {
+        this.isLoading = false;
         for (let i in resArray) {
           this.music[i].response = resArray[i].subject_collection_items;
           this.music[i].response.forEach(element => {
