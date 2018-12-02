@@ -1,7 +1,11 @@
 <template>
   <div id="detail">
     <cards :dataVal="dataVal" :dataPerson="dataPerson"/>
-    <discuss :dataShortCommit="dataShortCommit" :title="dataVal.title" :dataDiscuss="dataDiscuss"/>
+    <discuss
+      :dataShortCommit="dataShortCommit"
+      :title="$route.query.title"
+      :dataDiscuss="dataDiscuss"
+    />
   </div>
 </template>
 
@@ -58,17 +62,17 @@ export default {
     }
   },
   mounted() {
+    this.$store.commit("change", {
+      flag: "block",
+      title: this.$route.query.title,
+      bgColor: "#E4A813",
+      arrow: true
+    });
     /**
      * 详情
      */
     this.more().then(res => {
       this.dataVal = res;
-      this.$store.commit("change", {
-        flag: "block",
-        title: this.dataVal.title,
-        bgColor: "#E4A813",
-        arrow: true
-      });
     });
     /**
      * 演员

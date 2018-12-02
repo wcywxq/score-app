@@ -16,13 +16,6 @@ import {
 import {
     server
 } from './providers/http-service'
-// import VueLazyload from 'vue-lazyload'
-// Vue.use(VueLazyload, {
-//     error: './assets/images/imgload.svg',
-//     loading: './assets/images/imgload.svg',
-//     attempt: 1
-// })
-
 
 Vue.config.productionTip = false;
 Vue.use(NavBar).use(Icon).use(Tab).use(Tabs).use(Rate).use(Loading).use(Collapse).use(CollapseItem);

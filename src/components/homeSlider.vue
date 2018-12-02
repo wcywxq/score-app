@@ -12,10 +12,12 @@
                     path: 'Detail', 
                     query: {
                         id: item.id,
-                        type: type
+                        type: type,
+                        title: item.title
                     }
                 }"
           >
+            <!-- <img :src="'https://images.weserv.nl/?url=' + item.cover.url" alt> -->
             <img :src="'https://images.weserv.nl/?url=' + item.cover.url" alt>
             <div>
               <span>{{item.title.length >= 5 ? item.title.substring(0, 5) + '...' : item.title}}</span>

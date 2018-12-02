@@ -1,12 +1,12 @@
 <template>
   <div id="card">
     <section class="card">
-      <h1>{{ dataVal.title }}</h1>
+      <h1>{{ $route.query.title }}</h1>
       <section class="card-info">
         <aside class="card-info-left">
           <p class="rating">
             <van-rate
-              v-model="this.dataVal.extra.rating_group.rating.value / 2"
+              v-model="dataVal.extra.rating_group.rating.value / 2"
               readonly
               :count="5"
               :size="10"
@@ -37,7 +37,7 @@
         </ul>
       </section>
       <section class="card-synopsis">
-        <h2 class="card-subTitle">{{ dataVal.title }}的剧情简介</h2>
+        <h2 class="card-subTitle">{{ $route.query.title }}的剧情简介</h2>
         <p ref="content" :data-content="content">
           {{ content.substring(0, 80) + '...' }}
           <a
@@ -67,14 +67,14 @@
           </ul>
         </aside>
       </section>
-      <section class="card-trailer">
+      <!-- <section class="card-trailer">
         <h2 class="card-subTitle">
-          <span>{{ dataVal.title }}的</span>
+          <span>{{ $route.query.title }}的</span>
           <span>预告片(12)</span>
           <span>和</span>
           <span>图片(322)</span>
         </h2>
-      </section>
+      </section> -->
     </section>
   </div>
 </template>

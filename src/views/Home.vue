@@ -3,7 +3,7 @@
     <van-tabs v-model="active" color="#42bd56" sticky>
       <van-tab title="电影">
         <home-slider
-          v-for="(item, index) in movie"
+          v-for="(item, index) in cata.data[0].value"
           :key="index"
           :title="item.title"
           :message="item.response"
@@ -23,7 +23,7 @@
       </van-tab>
       <van-tab title="电视">
         <home-slider
-          v-for="(item, index) in tv"
+          v-for="(item, index) in cata.data[1].value"
           :key="index"
           :title="item.title"
           :message="item.response"
@@ -43,7 +43,7 @@
       </van-tab>
       <van-tab title="图书">
         <home-slider
-          v-for="(item, index) in book"
+          v-for="(item, index) in cata.data[2].value"
           :key="index"
           :title="item.title"
           :message="item.response"
@@ -63,7 +63,7 @@
       </van-tab>
       <van-tab title="音乐">
         <home-slider
-          v-for="(item, index) in music"
+          v-for="(item, index) in cata.data[3].value"
           :key="index"
           :title="item.title"
           :message="item.response"
@@ -92,7 +92,6 @@
           :data="item.groups"
         />
       </van-tab>
-      <van-tab title="阅读"></van-tab>
       <van-tab title="游戏">
         <classify
           v-for="(item, index) in type.game"
@@ -125,6 +124,7 @@ import classify from "@/components/classify";
 import application from "@/components/application";
 import group from "@/components/group";
 import data from "@/static/json/application.json";
+import cataData from "@/static/json/cata.json";
 
 export default {
   name: "Home",
@@ -132,105 +132,6 @@ export default {
     return {
       active: 0,
       count: 8,
-      movie: [
-        {
-          title: "热门电影前250",
-          response: null,
-          flag: true,
-          type: "movie",
-          reqType: "movieTop250"
-        },
-        {
-          title: "影院热映",
-          response: null,
-          flag: true,
-          type: "movie",
-          reqType: "movieHot"
-        },
-        {
-          title: "免费在线电影",
-          response: null,
-          flag: true,
-          type: "movie",
-          reqType: "movieFree"
-        },
-        {
-          title: "新片速递",
-          response: null,
-          flag: true,
-          type: "movie",
-          reqType: "movieRecent"
-        }
-      ],
-      book: [
-        {
-          title: "最受关注图书：虚构类",
-          response: null,
-          flag: true,
-          type: "book",
-          reqType: "bookFiction"
-        },
-        {
-          title: "最受关注图书：非虚构类",
-          response: null,
-          flag: true,
-          type: "book",
-          reqType: "bookNoFiction"
-        },
-        {
-          title: "豆瓣书店",
-          response: null,
-          flag: false,
-          type: "book",
-          reqType: "bookStore"
-        }
-      ],
-      tv: [
-        {
-          title: "近期热门国产剧",
-          response: null,
-          flag: true,
-          type: "tv",
-          reqType: "domestic"
-        },
-        {
-          title: "近期热门综艺节目",
-          response: null,
-          flag: true,
-          type: "tv",
-          reqType: "varietyShow"
-        },
-        {
-          title: "近期热门美剧",
-          response: null,
-          flag: true,
-          type: "tv",
-          reqType: "american"
-        }
-      ],
-      music: [
-        {
-          title: "华语新碟榜",
-          response: null,
-          flag: true,
-          type: "music",
-          reqType: "Chinese"
-        },
-        {
-          title: "欧美新碟榜",
-          response: null,
-          flag: true,
-          type: "music",
-          reqType: "occident"
-        },
-        {
-          title: "日韩新碟榜",
-          response: null,
-          flag: true,
-          type: "music",
-          reqType: "japanKorea"
-        }
-      ],
       type: {
         movie: [
           "经典",
@@ -372,6 +273,8 @@ export default {
         }
       },
       app: data,
+      cata: cataData,
+      cataArray: [],
       groupData: null,
       isLoading: true
     };
@@ -460,74 +363,46 @@ export default {
       bgColor: "#E4A813",
       arrow: false
     });
+    this.movieTop250().then(res => {
+      this.isLoading = false;
+      this.cata.data[0].value[0].response = res.subjects;
+      this.cata.data[0].value[0].response.forEach(element => {
+        element.cover = {
+          url: element.images.small
+        };
+        element.rating = {
+          value: element.rating.average
+        };
+      });
+    });
     Promise.all([
-      this.movieTop250(),
       this.movieHot(),
       this.movieFree(),
-      this.movieRecent()
-    ]).then(resArray => {
-      this.isLoading = false;
-      for (let i in resArray) {
-        if (i == 0) {
-          this.movie[i].response = resArray[i].subjects;
-          this.movie[i].response.forEach(element => {
-            element.cover = {
-              url: element.images.small
-            };
-            element.rating = {
-              value: element.rating.average
-            };
-          });
-        } else {
-          this.movie[i].response = resArray[i].subject_collection_items;
-          this.movie[i].response.forEach(element => {
-            if (!element.rating) {
-              element.rating = {
-                value: "暂无评分"
-              };
-            }
-          });
-        }
-      }
-    });
-    Promise.all([this.domestic(), this.varietyShow(), this.american()]).then(
-      resArray => {
-        this.isLoading = false;
-        for (let i in resArray) {
-          this.tv[i].response = resArray[i].subject_collection_items;
-          this.tv[i].response.forEach(element => {
-            if (!element.rating) {
-              element.rating = {
-                value: "暂无评分"
-              };
-            }
-          });
-        }
-      }
-    );
-    Promise.all([
+      this.movieRecent(),
+      this.domestic(),
+      this.varietyShow(),
+      this.american(),
       this.bookFiction(),
       this.bookNoFiction(),
-      this.bookStore()
+      this.bookStore(),
+      this.Chinese(),
+      this.occident(),
+      this.japanKorea()
     ]).then(resArray => {
       this.isLoading = false;
-      for (let i in resArray) {
-        this.book[i].response = resArray[i].subject_collection_items;
-        this.book[i].response.forEach(element => {
-          if (!element.rating) {
-            element.rating = {
-              value: "暂无评分"
-            };
-          }
+      // 将所有用于存放异步返回的数据对象统一放入一个数组中
+      this.cata.data.forEach(el => {
+        el.value.forEach(elItem => {
+          this.cataArray.push(elItem);
         });
-      }
-    });
-    Promise.all([this.Chinese(), this.occident(), this.japanKorea()]).then(
-      resArray => {
-        this.isLoading = false;
-        for (let i in resArray) {
-          this.music[i].response = resArray[i].subject_collection_items;
-          this.music[i].response.forEach(element => {
+      });
+      // 去除第一个top250非jsonp请求
+      this.cataArray.shift();
+      // 遍历所有的异步请求数据对象
+      for (let [index, item] of resArray.entries()) {
+        if (this.cataArray[index]) {
+          this.cataArray[index].response = item.subject_collection_items;
+          this.cataArray[index].response.forEach(element => {
             if (!element.rating) {
               element.rating = {
                 value: "暂无评分"
@@ -536,7 +411,8 @@ export default {
           });
         }
       }
-    );
+    });
+
     /**
      * 小组
      * */
