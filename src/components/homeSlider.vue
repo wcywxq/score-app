@@ -30,7 +30,7 @@
                 <span
                   ref="rating"
                   :data-rating="item.rating ? item.rating.value : '暂无评分'"
-                >{{typeof item.rating.value == 'string' ? item.rating.value : '评分：' + item.rating.value}}</span>
+                >{{typeof item.rating.value == 'string' ? item.rating.value : '评分：' + item.rating.value.toFixed(2)}}</span>
               </p>
               <p class="price" v-show="!status">
                 <span>¥ {{item.price}}</span>

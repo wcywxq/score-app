@@ -3,6 +3,16 @@ import Router from 'vue-router'
 import Home from './views/Home.vue'
 import List from './views/List.vue'
 import Detail from './views/Detail.vue'
+/** 切换子路由 */
+import movie from './views/Home/movie.vue';
+import tv from './views/Home/tv.vue';
+import book from './views/Home/book.vue';
+import music from './views/Home/music.vue';
+import group from './views/Home/group.vue';
+import game from './views/Home/game.vue';
+import apps from './views/Home/apps.vue';
+
+/** 详情子路由 */
 /** 电影 */
 import movieTop250 from './views/List/movieTop250.vue'
 import movieHot from './views/List/movieHot.vue'
@@ -25,11 +35,39 @@ import japanKorea from './views/List/japanKorea.vue'
 Vue.use(Router);
 
 export default new Router({
-    mode: 'history',
     routes: [{
             path: '/',
             name: 'home',
-            component: Home
+            component: Home,
+            children: [{
+                path: '/',
+                name: 'movie',
+                component: movie
+            }, {
+                path: 'tv',
+                name: 'tv',
+                component: tv
+            }, {
+                path: 'book',
+                name: 'book',
+                component: book
+            }, {
+                path: 'music',
+                name: 'music',
+                component: music
+            }, {
+                path: 'group',
+                name: 'group',
+                component: group
+            }, {
+                path: 'game',
+                name: 'game',
+                component: game
+            }, {
+                path: 'apps',
+                name: 'apps',
+                component: apps
+            }]
         },
         {
             path: '/List',
@@ -37,7 +75,7 @@ export default new Router({
             component: List,
             children: [{
                     path: 'movieTop250',
-                    name: 'movieHot',
+                    name: 'movieTop250',
                     component: movieTop250
                 },
                 {

@@ -1,359 +1,65 @@
 <template>
   <div id="Home">
-    <van-tabs v-model="active" color="#42bd56" sticky>
+    <van-tabs v-model="active" color="#42bd56" @click="tabRouter" sticky>
       <van-tab title="电影">
-        <home-slider
-          v-for="(item, index) in cata.data[0].value"
-          :key="index"
-          :title="item.title"
-          :message="item.response"
-          :status="item.flag"
-          :type="item.type"
-          :Loading="isLoading"
-          :linkMore="{
-                            path: `List/${item.reqType}`,
-                            query: {
-                                title: item.title,
-                                type: item.type,
-                                reqType: item.reqType
-                            }    
-                        }"
-        />
-        <classify :type="type['movie']" title="分类浏览"/>
+        <router-view></router-view>
       </van-tab>
       <van-tab title="电视">
-        <home-slider
-          v-for="(item, index) in cata.data[1].value"
-          :key="index"
-          :title="item.title"
-          :message="item.response"
-          :status="item.flag"
-          :type="item.type"
-          :Loading="isLoading"
-          :linkMore="{
-                            path: `List/${item.reqType}`,
-                            query: {
-                                title: item.title,
-                                type: item.type,
-                                reqType: item.reqType
-                            }
-                        }"
-        />
-        <classify :type="type['tv']" title="分类浏览"/>
+        <router-view></router-view>
       </van-tab>
       <van-tab title="图书">
-        <home-slider
-          v-for="(item, index) in cata.data[2].value"
-          :key="index"
-          :title="item.title"
-          :message="item.response"
-          :status="item.flag"
-          :type="item.type"
-          :Loading="isLoading"
-          :linkMore="{
-                            path: `List/${item.reqType}`,
-                            query: {
-                                title: item.title,
-                                type: item.type,
-                                reqType: item.reqType
-                            }
-                        }"
-        />
-        <classify :type="type['book']" title="分类浏览"/>
+        <router-view></router-view>
       </van-tab>
       <van-tab title="音乐">
-        <home-slider
-          v-for="(item, index) in cata.data[3].value"
-          :key="index"
-          :title="item.title"
-          :message="item.response"
-          :status="item.flag"
-          :type="item.type"
-          :Loading="isLoading"
-          :linkMore="{
-                            path: `List/${item.reqType}`,
-                            query: {
-                                title: item.title,
-                                type: item.type,
-                                reqType: item.reqType
-                            }
-                        }"
-        />
-        <classify :type="type['music']" title="分类浏览"/>
+        <router-view></router-view>
       </van-tab>
-      <van-tab title="小组" class="group-tab">
-        <section id="loading">
-          <van-loading color="green" v-show="isLoading"/>
-        </section>
-        <group
-          v-for="(item, index) in groupData"
-          :key="index"
-          :title="item.name"
-          :data="item.groups"
-        />
+      <van-tab title="小组">
+        <router-view></router-view>
       </van-tab>
       <van-tab title="游戏">
-        <classify
-          v-for="(item, index) in type.game"
-          :key="index"
-          :type="item.val"
-          :title="item.title"
-        />
+        <router-view></router-view>
       </van-tab>
       <van-tab title="应用">
-        <application
-          v-for="(item, index) in app"
-          :key="index"
-          :title="item.title"
-          :data="item.val"
-        />
-        <classify
-          v-for="(item, index) in type.application"
-          :key="index"
-          :type="item.val"
-          :title="item.title"
-        />
+        <router-view></router-view>
       </van-tab>
     </van-tabs>
   </div>
 </template>
 
 <script>
-import homeSlider from "@/components/homeSlider";
-import classify from "@/components/classify";
-import application from "@/components/application";
-import group from "@/components/group";
-import data from "@/static/json/application.json";
-import cataData from "@/static/json/cata.json";
-
 export default {
   name: "Home",
   data() {
     return {
-      active: 0,
-      count: 8,
-      type: {
-        movie: [
-          "经典",
-          "冷门佳片",
-          "豆瓣高分",
-          "动作",
-          "喜剧",
-          "爱情",
-          "悬疑",
-          "恐怖",
-          "科幻",
-          "治愈",
-          "文艺",
-          "成长",
-          "动画",
-          "华语",
-          "欧美",
-          "韩国",
-          "日本"
-        ],
-        tv: ["美剧", "英剧", "韩剧", "国产剧", "港剧", "日剧", "动漫", "综艺"],
-        book: [
-          "小说",
-          "爱情",
-          "历史",
-          "外国文学",
-          "青春",
-          "励志",
-          "随笔",
-          "传记",
-          "推理",
-          "旅行",
-          "奇幻",
-          "经营"
-        ],
-        music: ["流行", "摇滚", "民谣", "独立", "华语", "欧美", "日本", "韩国"],
-        game: {
-          genre: {
-            title: "按类型浏览",
-            val: [
-              "动作",
-              "角色扮演",
-              "横版过关",
-              "冒险",
-              "射击",
-              "策略",
-              "益智",
-              "模拟",
-              "体育",
-              "竞速",
-              "格斗",
-              "乱斗/清版",
-              "即时战略",
-              "音乐/旋律"
-            ]
-          },
-          platform: {
-            title: "按平台浏览",
-            val: [
-              "pc",
-              "Mac",
-              "iPhone",
-              "iPad",
-              "Android",
-              "PS4",
-              "Xbox One",
-              "Nintendo Switch",
-              "Wii U",
-              "PS3",
-              "Xbox 360",
-              "Wii",
-              "PS2",
-              "Xbox",
-              "NGC/GameCube",
-              "PS",
-              "PSV/PS Vita",
-              "PSP",
-              "3DS",
-              "NDS",
-              "Arcade/街机",
-              "FC/NES/红白机",
-              "SFC/SNES/超任",
-              "MD/世嘉五代",
-              "N64/任天堂64",
-              "GB",
-              "GBA",
-              "DC/Dreamcast",
-              "SS/世嘉土星"
-            ]
-          }
-        },
-        application: {
-          iosPlat: {
-            title: "ios",
-            val: [
-              "游戏",
-              "生活",
-              "图书",
-              "效率",
-              "娱乐",
-              "音乐",
-              "摄影",
-              "社交",
-              "教育",
-              "工具",
-              "旅行",
-              "参考",
-              "新闻",
-              "健康",
-              "商业",
-              "美食",
-              "财务",
-              "导航",
-              "体育",
-              "天气",
-              "购物",
-              "医疗"
-            ]
-          },
-          AndroidPlat: {
-            title: "Android",
-            val: [
-              "通讯社交",
-              "新闻阅读",
-              "效率办公",
-              "摄影摄像",
-              "实用工具",
-              "教育学习",
-              "金融理财",
-              "交通出行",
-              "运动健康",
-              "生活",
-              "购物",
-              "影音",
-              "娱乐",
-              "游戏"
-            ]
-          }
-        }
-      },
-      app: data,
-      cata: cataData,
-      cataArray: [],
-      groupData: null,
-      isLoading: true
+      active: this.$route.query.active
     };
   },
-  components: {
-    homeSlider,
-    classify,
-    application,
-    group
-  },
-  computed: {
-    paramsTop250() {
-      let paramObj = {
-        start: 0,
-        count: 8
-      };
-      return paramObj;
-    },
-    params() {
-      let paramObj = {
-        start: 0,
-        count: 8
-      };
-      return paramObj;
-    },
-    paramsGroup() {
-      let paramObj = {
-        for_mobile: 1
-      };
-      return paramObj;
-    }
-  },
   methods: {
-    // 电影
-    movieTop250() {
-      return this.$server.movieTop250(this.paramsTop250);
-    },
-    movieHot() {
-      return this.$server.movieHot(this.params);
-    },
-    movieFree() {
-      return this.$server.movieFree(this.params);
-    },
-    movieRecent() {
-      return this.$server.movieRecent(this.params);
-    },
-    // 电视
-    domestic() {
-      return this.$server.domestic(this.params);
-    },
-    varietyShow() {
-      return this.$server.varietyShow(this.params);
-    },
-    american() {
-      return this.$server.american(this.params);
-    },
-    // 图书
-    bookFiction() {
-      return this.$server.bookFiction(this.params);
-    },
-    bookNoFiction() {
-      return this.$server.bookNoFiction(this.params);
-    },
-    bookStore() {
-      return this.$server.bookStore(this.params);
-    },
-    // 音乐
-    Chinese() {
-      return this.$server.Chinese(this.params);
-    },
-    occident() {
-      return this.$server.occident(this.params);
-    },
-    japanKorea() {
-      return this.$server.japanKorea(this.params);
-    },
-    // 小组
-    group() {
-      return this.$server.group(this.paramsGroup);
+    // 跳转子路由
+    tabRouter(index, title) {
+      switch (index) {
+        case 0:
+          this.$router.push({ name: "movie", query: { active: 0 } });
+          break;
+        case 1:
+          this.$router.push({ name: "tv", query: { active: 1 } });
+          break;
+        case 2:
+          this.$router.push({ name: "book", query: { active: 2 } });
+          break;
+        case 3:
+          this.$router.push({ name: "music", query: { active: 3 } });
+          break;
+        case 4:
+          this.$router.push({ name: "group", query: { active: 4 } });
+          break;
+        case 5:
+          this.$router.push({ name: "game", query: { active: 5 } });
+          break;
+        default:
+          this.$router.push({ name: "apps", query: { active: 6 } });
+          break;
+      }
     }
   },
   mounted() {
@@ -363,75 +69,9 @@ export default {
       bgColor: "#E4A813",
       arrow: false
     });
-    this.movieTop250().then(res => {
-      this.isLoading = false;
-      this.cata.data[0].value[0].response = res.subjects;
-      this.cata.data[0].value[0].response.forEach(element => {
-        element.cover = {
-          url: element.images.small
-        };
-        element.rating = {
-          value: element.rating.average
-        };
-      });
-    });
-    Promise.all([
-      this.movieHot(),
-      this.movieFree(),
-      this.movieRecent(),
-      this.domestic(),
-      this.varietyShow(),
-      this.american(),
-      this.bookFiction(),
-      this.bookNoFiction(),
-      this.bookStore(),
-      this.Chinese(),
-      this.occident(),
-      this.japanKorea()
-    ]).then(resArray => {
-      this.isLoading = false;
-      // 将所有用于存放异步返回的数据对象统一放入一个数组中
-      this.cata.data.forEach(el => {
-        el.value.forEach(elItem => {
-          this.cataArray.push(elItem);
-        });
-      });
-      // 去除第一个top250非jsonp请求
-      this.cataArray.shift();
-      // 遍历所有的异步请求数据对象
-      for (let [index, item] of resArray.entries()) {
-        if (this.cataArray[index]) {
-          this.cataArray[index].response = item.subject_collection_items;
-          this.cataArray[index].response.forEach(element => {
-            if (!element.rating) {
-              element.rating = {
-                value: "暂无评分"
-              };
-            }
-          });
-        }
-      }
-    });
-
-    /**
-     * 小组
-     * */
-    this.group().then(res => {
-      this.isLoading = false;
-      this.groupData = res.rec_groups[0].classified_groups;
-    });
   }
 };
 </script>
 
 <style scoped>
-.group-tab {
-  position: relative;
-}
-#loading {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  top: 280px;
-}
 </style>
