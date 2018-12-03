@@ -4,7 +4,7 @@
       <h2>{{title}}</h2>
       <router-link :to="linkMore">更多</router-link>
     </header>
-    <aside>
+    <aside v-show="!Loading">
       <ul>
         <li v-for="(item, key) in message" :key="key">
           <router-link
@@ -17,8 +17,10 @@
                     }
                 }"
           >
-            <!-- <img :src="'https://images.weserv.nl/?url=' + item.cover.url" alt> -->
-            <img :src="'https://images.weserv.nl/?url=' + item.cover.url" alt>
+            <img
+              v-lazy="'https://images.weserv.nl/?url=' + item.cover.url"
+              :alt="'https://images.weserv.nl/?url=' + item.cover.url"
+            >
             <div>
               <span>{{item.title.length >= 5 ? item.title.substring(0, 5) + '...' : item.title}}</span>
               <p class="star" v-show="status">

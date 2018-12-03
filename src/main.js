@@ -17,8 +17,13 @@ import {
     server
 } from './providers/http-service'
 
+import VueLazyload from 'vue-lazyload'
+
 Vue.config.productionTip = false;
 Vue.use(NavBar).use(Icon).use(Tab).use(Tabs).use(Rate).use(Loading).use(Collapse).use(CollapseItem);
+Vue.use(VueLazyload, {
+    loading: `${require('./assets/images/loading.png')}`
+})
 Vue.prototype.$server = server;
 
 import './assets/scss/reset.scss'

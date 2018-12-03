@@ -4,7 +4,7 @@
     <ul>
       <li v-for="(item, index) in data" :key="index">
         <aside class="group-top">
-          <img :src="'https://images.weserv.nl/?url=' + item.owner.avatar" alt>
+          <img v-lazy="'https://images.weserv.nl/?url=' + item.owner.avatar" alt>
           <span class="group-name">{{item.name}}</span>
           <span class="group-member">{{item.member_count}}人</span>
         </aside>
@@ -44,7 +44,7 @@ export default {
       @include flex;
       @include fl_column_center;
       img {
-        @include wh(40px, auto);
+        @include wh(40px, 40px);
       }
       span {
         &.group-name {

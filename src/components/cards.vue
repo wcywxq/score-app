@@ -19,7 +19,7 @@
         <aside class="card-info-right">
           <a href="#">
             <img
-              :src="'https://images.weserv.nl/?url=' + dataVal.cover_img.url"
+              v-lazy="'https://images.weserv.nl/?url=' + dataVal.cover_img.url"
               :alt="dataVal.cover_img.url"
             >
           </a>
@@ -56,7 +56,7 @@
               <aside v-for="(element, idx) in item.celebrities" :key="idx">
                 <a :href="element.url">
                   <img
-                    :src="'https://images.weserv.nl/?url=' + element.cover_url"
+                    v-lazy="'https://images.weserv.nl/?url=' + element.cover_url"
                     :alt="element.cover_url"
                   >
                 </a>
@@ -206,7 +206,7 @@ export default {
         }
       }
       img {
-        @include wh(75px, auto);
+        @include wh(75px, 107px);
       }
     }
   }

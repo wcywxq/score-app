@@ -6,7 +6,7 @@
         <li v-for="(item, index) in dataShortCommit.interests" :key="index">
           <aside class="comment-top">
             <a :href="item.user.url">
-              <img :src="'https://images.weserv.nl/?url=' + item.user.avatar" alt>
+              <img v-lazy="'https://images.weserv.nl/?url=' + item.user.avatar" alt>
             </a>
             <div class="comment-top-info">
               <aside class="info-rating">
@@ -72,7 +72,7 @@ export default {
       @include flex;
       margin-bottom: 11px;
       img {
-        @include wh(36px, auto);
+        @include wh(36px, 36px);
         margin-right: 10px;
         border-radius: 50%;
       }

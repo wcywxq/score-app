@@ -6,7 +6,7 @@
         <router-link :to="{ name: 'detail', query: { id: item.id, type: $route.query.type } }">
           <aside class="list-container-cover">
             <img
-              :src="'https://images.weserv.nl/?url=' + item.images.small"
+              v-lazy="'https://images.weserv.nl/?url=' + item.images.small"
               :alt="item.images.small"
             >
           </aside>

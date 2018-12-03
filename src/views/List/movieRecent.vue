@@ -5,7 +5,7 @@
       <aside class="list-box" v-for="(item, index) in obj" :key="index">
         <router-link :to="{ name: 'detail', query: { id: item.id, type: $route.query.type } }">
           <aside class="list-container-cover">
-            <img :src="'https://images.weserv.nl/?url=' + item.cover.url" :alt="item.cover.url">
+            <img v-lazy="'https://images.weserv.nl/?url=' + item.cover.url" :alt="item.cover.url">
           </aside>
           <aside class="list-container-info">
             <h3>{{item.title.length >= 5 ? item.title.substring(0, 5) + '...' : item.title}}</h3>

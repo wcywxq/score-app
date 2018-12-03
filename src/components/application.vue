@@ -7,7 +7,7 @@
             <ul>
                 <li v-for="(item, index) in data" :key="index">
                     <a :href="item.url">
-                        <img :src="'https://images.weserv.nl/?url=' + item.img" :alt="item.img">
+                        <img v-lazy="'https://images.weserv.nl/?url=' + item.img" :alt="item.img">
                         <div>
                             <span>{{item.name.length >= 6 ? item.name.substring(0, 6) + '...' : item.name}}</span>
                             <p class="star">
@@ -66,7 +66,7 @@
                 li {
                     margin-left: 8px;
                     img {
-                        @include wh(100px, auto)
+                        @include wh(100px, 100px)
                     }
                     div {
                         span {
