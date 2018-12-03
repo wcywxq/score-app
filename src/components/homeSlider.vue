@@ -13,7 +13,7 @@
                     query: {
                         id: item.id,
                         type: type,
-                        title: item.title
+                        t: item.title
                     }
                 }"
           >

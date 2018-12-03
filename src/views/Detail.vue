@@ -3,7 +3,7 @@
     <cards :dataVal="dataVal" :dataPerson="dataPerson"/>
     <discuss
       :dataShortCommit="dataShortCommit"
-      :title="$route.query.title"
+      :title="$route.query.t"
       :dataDiscuss="dataDiscuss"
     />
   </div>
@@ -64,7 +64,7 @@ export default {
   mounted() {
     this.$store.commit("change", {
       flag: "block",
-      title: this.$route.query.title,
+      title: this.$route.query.t,
       bgColor: "#E4A813",
       arrow: true
     });
