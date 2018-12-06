@@ -1,17 +1,17 @@
 <template>
   <div id="detail">
     <cards :dataVal="dataVal" :dataPerson="dataPerson"/>
-    <discuss
-      :dataShortCommit="dataShortCommit"
-      :title="$route.query.t"
-      :dataDiscuss="dataDiscuss"
-    />
+    <h2 class="card-subTitle">{{ $route.query.t }}的短评({{ dataShortCommit.total }})</h2>
+    <short-comments :ShortCommit="dataShortCommit" :isShow="true" />
+    <reviews :Reviews="dataReviews" :isShow="true" />
   </div>
 </template>
 
 <script>
 import cards from "@/components/cards";
-import discuss from "@/components/discuss";
+import shortComments from "@/components/shortComments";
+import reviews from "@/components/reviews";
+
 export default {
   name: "Detail",
   data() {
@@ -19,12 +19,13 @@ export default {
       dataVal: null,
       dataPerson: null,
       dataShortCommit: null,
-      dataDiscuss: null
+      dataReviews: null
     };
   },
   components: {
     cards,
-    discuss
+    shortComments,
+    reviews
   },
   methods: {
     more() {
@@ -90,7 +91,7 @@ export default {
      * 讨论
      */
     this.discuss().then(res => {
-      this.dataDiscuss = res;
+      this.dataReviews = res;
     });
   }
 };

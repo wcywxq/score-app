@@ -1,26 +1,40 @@
 <template>
   <div id="Home">
-    <van-tabs v-model="active" color="#42bd56" @click="tabRouter" sticky>
+    <van-tabs v-model="active" color="#42bd56" @click="tabRouter" sticky animated>
       <van-tab title="电影">
-        <router-view></router-view>
+        <keep-alive>
+          <router-view></router-view>
+        </keep-alive>
       </van-tab>
       <van-tab title="电视">
-        <router-view></router-view>
+        <keep-alive>
+          <router-view></router-view>
+        </keep-alive>
       </van-tab>
       <van-tab title="图书">
-        <router-view></router-view>
+        <keep-alive>
+          <router-view></router-view>
+        </keep-alive>
       </van-tab>
       <van-tab title="音乐">
-        <router-view></router-view>
+        <keep-alive>
+          <router-view></router-view>
+        </keep-alive>
       </van-tab>
       <van-tab title="小组">
-        <router-view></router-view>
+        <keep-alive>
+          <router-view></router-view>
+        </keep-alive>
       </van-tab>
       <van-tab title="游戏">
-        <router-view></router-view>
+        <keep-alive>
+          <router-view></router-view>
+        </keep-alive>
       </van-tab>
       <van-tab title="应用">
-        <router-view></router-view>
+        <keep-alive>
+          <router-view></router-view>
+        </keep-alive>
       </van-tab>
     </van-tabs>
   </div>

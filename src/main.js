@@ -11,7 +11,8 @@ import {
     Rate,
     Loading,
     Collapse,
-    CollapseItem
+    CollapseItem,
+    Pagination
 } from 'vant'
 import {
     server
@@ -20,7 +21,7 @@ import {
 import VueLazyload from 'vue-lazyload'
 
 Vue.config.productionTip = false;
-Vue.use(NavBar).use(Icon).use(Tab).use(Tabs).use(Rate).use(Loading).use(Collapse).use(CollapseItem);
+Vue.use(NavBar).use(Icon).use(Tab).use(Tabs).use(Rate).use(Loading).use(Collapse).use(CollapseItem).use(Pagination);
 Vue.use(VueLazyload, {
     loading: `${require('./assets/images/loading.png')}`
 })

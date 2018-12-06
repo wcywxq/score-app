@@ -1,9 +1,8 @@
 <template>
-  <div id="discuss">
-    <h2 class="card-subTitle">{{ title }}的短评({{ dataShortCommit.total }})</h2>
+  <div id="shortComments">
     <section class="comment">
       <ul>
-        <li v-for="(item, index) in dataShortCommit.interests" :key="index">
+        <li v-for="(item, index) in ShortCommit.interests" :key="index">
           <aside class="comment-top">
             <a :href="item.user.url">
               <img v-lazy="'https://images.weserv.nl/?url=' + item.user.avatar" alt>
@@ -23,47 +22,35 @@
           </aside>
         </li>
       </ul>
-      <section class="go-all">
-        <router-link to="#">查看全部短评</router-link>
-      </section>
     </section>
-    <section class="discuss">
-      <h2 class="card-subTitle">讨论({{ dataDiscuss.total }})</h2>
-      <section class="discuss-list">
-        <ul>
-          <li v-for="(item, index) in dataDiscuss.forum_topics" :key="index">
-            <a :href="item.url">
-              <h3>{{ item.title }}</h3>
-              <div class="discuss-list-info">{{ item.comments_count }}回应</div>
-            </a>
-          </li>
-        </ul>
-      </section>
-      <section class="go-all">
-        <router-link to="#">查看全部讨论</router-link>
-      </section>
+    <section class="go-all" v-show="isShow">
+      <router-link :to="{
+        name: 'hot', 
+        query: {
+          type: $route.query.type,
+          id: $route.query.id
+        }
+      }">查看全部短评</router-link>
     </section>
   </div>
 </template>
 
 <script>
 export default {
-  name: "discuss",
+  name: "shortComments",
   data() {
     return {};
   },
   props: {
-    dataShortCommit: Object,
-    title: String,
-    count: String,
-    dataDiscuss: Object
+    ShortCommit: Object,
+    isShow: Boolean
   }
 };
 </script>
 
 <style scoped lang="scss">
 @import "../assets/scss/mixin.scss";
-#discuss {
+#shortComments {
   .comment {
     li {
       padding-bottom: 15px;
@@ -102,27 +89,6 @@ export default {
       margin-top: 10px;
       .text {
         margin-left: 3px;
-      }
-    }
-  }
-  .discuss {
-    &-list {
-      ul {
-        li {
-          padding: 0 18px 15px 0;
-          a {
-            color: #494949;
-            h3 {
-              @include sizeColor(17px, #494949, inherit);
-              font-weight: 500;
-            }
-          }
-        }
-      }
-
-      &-info {
-        @include sizeColor(14px, #42bd56, inherit);
-        margin-top: 5px;
       }
     }
   }

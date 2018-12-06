@@ -312,6 +312,9 @@ export const server = {
         let url = this.groupHost + `${type}/${id}/credits`;
         return get(url, params)
     },
+    /**
+     * 短评 order_by=> hot: 热门 latest：最新
+     */
     shotCommits: function (type, id, params) {
         let url = this.groupHost + `${type}/${id}/interests`;
         return get(url, params)

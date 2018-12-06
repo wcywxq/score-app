@@ -3,6 +3,8 @@ import Router from 'vue-router'
 import Home from './views/Home.vue'
 import List from './views/List.vue'
 import Detail from './views/Detail.vue'
+import Comments from './views/Comments.vue'
+import Discussion from './views/Discussion.vue'
 /** 切换子路由 */
 import movie from './views/Home/movie.vue';
 import tv from './views/Home/tv.vue';
@@ -31,6 +33,9 @@ import Chinese from './views/List/Chinese.vue'
 import occident from './views/List/occident.vue'
 import japanKorea from './views/List/japanKorea.vue'
 
+/** 短评子路由 */
+import hot from './views/Comments/hot.vue'
+import latest from './views/Comments/latest.vue'
 
 Vue.use(Router);
 
@@ -143,6 +148,25 @@ export default new Router({
             path: '/Detail',
             name: 'detail',
             component: Detail
+        }, {
+            path: '/Comments',
+            name: 'comments',
+            component: Comments,
+            children: [{
+                    path: 'hot',
+                    name: 'hot',
+                    component: hot,
+                }, {
+                    path: 'latest',
+                    name: 'latest',
+                    component: latest,
+                }
+
+            ]
+        }, {
+            path: '/Discussion',
+            name: 'discussion',
+            component: Discussion
         }
     ]
 })
