@@ -27,7 +27,8 @@ Vue.use(VueLazyload, {
 })
 Vue.prototype.$server = server;
 
-import './assets/scss/reset.scss'
+import '@/mock/mock.js';
+import './assets/scss/reset.scss';
 import "./static/iconfont/iconfont.css";
 
 new Vue({
